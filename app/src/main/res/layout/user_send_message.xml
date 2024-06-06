@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
-    android:background="@color/orange"
     android:gravity="end"
     android:paddingBottom="@dimen/_5sdp">
 
@@ -16,12 +15,13 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/send_card_design"
         android:paddingStart="@dimen/_12sdp"
+        android:backgroundTint="#50727B"
         android:paddingTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:paddingEnd="@dimen/_12sdp"
         android:paddingBottom="@dimen/_8sdp"
         android:text="Hello, this is a chat message by chaku"
-        android:textColor="@android:color/black"
+        android:textColor="@color/white"
         android:textSize="@dimen/_14ssp" />
 
 </RelativeLayout>
