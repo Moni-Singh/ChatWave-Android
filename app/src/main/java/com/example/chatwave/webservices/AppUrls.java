@@ -8,5 +8,8 @@ public class AppUrls {
     public static final String HEADER = "Authorization";
     public static final String FCM_TOKEN = "fcmToken";
     public static final String USER_LIST = "userList";
+    public static final String CHAT_USER_LIST = "user/conversationList";
+    public static final String USER_CHAT_MESSAGE = "chat/getMessage";
+    public static final String SEND_CHAT_MESSAGE = "chat/message";
 
 }

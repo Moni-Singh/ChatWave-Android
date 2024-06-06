@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_5sdp"
@@ -11,10 +12,10 @@
         android:id="@+id/usernameProfileCl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:padding="@dimen/_8sdp"
         android:background="@color/cardcolor"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,10 +23,12 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/userImageCardView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:cardElevation="0dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_50ssp"
+            app:cardElevation="0dp"
+            android:layout_margin="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,12 +40,12 @@
                 android:padding="@dimen/_7sdp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/person"
-               />
+                />
 
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/userNameTextView"
+            android:id="@+id/userNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -50,9 +53,25 @@
             android:text="Moni"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/userImageCardView"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lastMessageStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yesterday"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userNameTv" />
+
+        <TextView
+            android:id="@+id/lastMessageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Last message is here"
+            app:layout_constraintStart_toEndOf="@+id/userImageCardView"
+            app:layout_constraintTop_toBottomOf="@+id/userNameTv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

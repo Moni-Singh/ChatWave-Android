@@ -41,7 +41,7 @@ public class LoginViewModel extends ViewModel {
                             String jsonResponse = gson.toJson(loginResponse);
                             Log.d("Login Response JSON", jsonResponse);
                             ApplicationSharedPreferences.saveObject("loginResponse", loginResponse, mContext);
-                            navController.navigate(R.id.navigation_home);
+                            navController.navigate(R.id.navigation_chat_user);
                             SharedPreferences sharedPreferences = mContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putBoolean("isLoggedIn", true);

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
-            android:id="@+id/userListSearchView"
+            android:id="@+id/chatUserListSearchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +27,24 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newChatUserListRv"
-        android:layout_width="0dp"
+        android:id="@+id/chatUserListRv"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userListSearchCv"
-        tools:listitem="@layout/new_chat_userlist" />
+        tools:listitem="@layout/chat_user_list" />
+    <!-- Floating Action Button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewChatUserFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:src="@drawable/add_chat_user"
+        app:tint="@android:color/white"
+        android:backgroundTint="@color/lightGrey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

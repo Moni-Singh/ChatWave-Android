@@ -1,13 +1,10 @@
-package com.example.chatwave.ui.home;
+package com.example.chatwave.ui.addnewchatuser;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatwave.R;
@@ -54,13 +51,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             binding = NewChatUserlistBinding.bind(itemView);
         }
         public void bind(UserListResponse user) {
-            binding.userNameTextView.setText(user.getFirstname()); // Assuming getName() returns the user's name
+            binding.userNameTextView.setText(user.getFirstname());
             binding.usernameProfileCl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Handle click event here if needed
                     if (listener != null) {
-                        listener.onUserClick(user); // Notify listener about user click
+                        listener.onUserClick(user);
                     }
                 }
             });

@@ -1,4 +1,4 @@
-package com.example.chatwave.ui.home;
+package com.example.chatwave.ui.addnewchatuser;
 
 import android.util.Log;
 
@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeViewModel extends ViewModel {
+public class NewChatUserViewModel extends ViewModel {
 
     private MutableLiveData<List<UserListResponse>> userListLiveData = new MutableLiveData<>();
      LiveData<List<UserListResponse>> getUserListLiveData(){

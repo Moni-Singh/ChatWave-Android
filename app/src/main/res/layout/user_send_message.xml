@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/_5sdp">
 
     <TextView
-        android:id="@+id/textMessage"
+        android:id="@+id/textSendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"

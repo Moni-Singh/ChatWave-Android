@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
                 if(navDestination.getId() == R.id.navigation_login ){
                     getSupportActionBar().hide();
-                } else if (navDestination.getId() == R.id.navigation_home) {
+                } else if (navDestination.getId() == R.id.navigation_chat_user) {
                     getSupportActionBar().show();
                 }
             }

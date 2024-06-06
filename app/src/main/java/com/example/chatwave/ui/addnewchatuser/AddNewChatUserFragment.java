@@ -1,5 +1,5 @@
 // HomeFragment.java
-package com.example.chatwave.ui.home;
+package com.example.chatwave.ui.addnewchatuser;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +20,10 @@ import com.example.chatwave.databinding.FragmentHomeBinding;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.models.response.UserListResponse;
 import com.example.chatwave.util.ApplicationSharedPreferences;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
-import java.util.List;
-
-public class HomeFragment extends Fragment implements UserListAdapter.OnUserClickListener {
+public class AddNewChatUserFragment extends Fragment implements UserListAdapter.OnUserClickListener {
 
     private FragmentHomeBinding binding;
     private Context mContext;
@@ -34,8 +32,8 @@ public class HomeFragment extends Fragment implements UserListAdapter.OnUserClic
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        NewChatUserViewModel homeViewModel =
+                new ViewModelProvider(this).get(NewChatUserViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -46,7 +44,6 @@ public class HomeFragment extends Fragment implements UserListAdapter.OnUserClic
         userListRecycleView = root.findViewById(R.id.newChatUserListRv);
         userListRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
 
-        // Observe the LiveData from ViewModel
         homeViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), userListResponses -> {
             if (userListResponses != null) {
                 // Update UI with the new data
@@ -66,6 +63,7 @@ public class HomeFragment extends Fragment implements UserListAdapter.OnUserClic
         }
         return root;
     }
+
 
     @Override
     public void onDestroyView() {

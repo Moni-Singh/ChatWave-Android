@@ -24,4 +24,7 @@ public class LoginResponse {
         return token;
     }
 
+    public String getId() {
+        return id;
+    }
 }

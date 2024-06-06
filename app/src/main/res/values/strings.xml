@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">ChatWave</string>
-    <string name="title_home">Home</string>
+    <string name="title_add_new_user">Start New Chat</string>
     <string name="title_register">Register</string>
     <string name="title_login">Login</string>
     <string name="chat_conversation">ChatConversation</string>
+    <string name="title_chat_userList">Chat User</string>
     <string name="login">Login</string>
     <string name="username_email">Username or E-mail</string>
     <string name="chatwave">ChatWave</string>
