@@ -1,4 +1,4 @@
-package com.example.chatwave.models.responsemodel;
+package com.example.chatwave.models.response;
 
 public class LoginResponse {
 

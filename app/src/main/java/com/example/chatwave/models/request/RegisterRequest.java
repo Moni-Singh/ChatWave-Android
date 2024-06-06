@@ -1,4 +1,4 @@
-package com.example.chatwave.models.requestmodels;
+package com.example.chatwave.models.request;
 
 public class RegisterRequest {
     public String firstname;

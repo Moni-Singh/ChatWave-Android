@@ -2,15 +2,12 @@ package com.example.chatwave.ui.Register;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
 import com.example.chatwave.R;
-import com.example.chatwave.models.requestmodels.LoginRequest;
-import com.example.chatwave.models.requestmodels.RegisterRequest;
-import com.example.chatwave.models.responsemodel.RegisterResponse;
+import com.example.chatwave.models.request.RegisterRequest;
+import com.example.chatwave.models.response.RegisterResponse;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
 

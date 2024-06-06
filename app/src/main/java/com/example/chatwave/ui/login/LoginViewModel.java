@@ -1,18 +1,17 @@
 package com.example.chatwave.ui.login;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.chatwave.R;
-import com.example.chatwave.models.requestmodels.LoginRequest;
-import com.example.chatwave.models.responsemodel.LoginResponse;
+import com.example.chatwave.models.request.LoginRequest;
+import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.util.ApplicationSharedPreferences;
-import com.example.chatwave.util.Constants;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
 import com.google.gson.Gson;
@@ -23,8 +22,6 @@ import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
 
-
-
     //Method to call Login Api
     public void performLogin(String email , String password, NavController navController, View progressBar,Context mContext){
 
@@ -32,8 +29,6 @@ public class LoginViewModel extends ViewModel {
             progressBar.setVisibility(View.VISIBLE);
             // Create an instance of the LoginRequest
             LoginRequest loginRequest = new LoginRequest(email, password);
-
-            // Call the API using Retrofit
             ApiInterface apiInterface = ApiClient.getAPIInterface();
             apiInterface.postLogin(loginRequest).enqueue(new Callback<LoginResponse>() {
                 @Override
@@ -44,21 +39,21 @@ public class LoginViewModel extends ViewModel {
                         if (loginResponse != null) {
                             Gson gson = new Gson();
                             String jsonResponse = gson.toJson(loginResponse);
-                   
-                            ApplicationSharedPreferences.saveObject(Constants.LOGIN_DATA, loginResponse, mContext);
-
-                           Log.d("Login Response JSON", jsonResponse);
-                            Log.d("Login Response", "Name: " + loginResponse.getName());
+                            Log.d("Login Response JSON", jsonResponse);
+                            ApplicationSharedPreferences.saveObject("loginResponse", loginResponse, mContext);
                             navController.navigate(R.id.navigation_home);
+                            SharedPreferences sharedPreferences = mContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("isLoggedIn", true);
+                            editor.apply();
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Log.e("Login Response", "Error occurred: " + t.getMessage());
-                    t.printStackTrace(); // Print the stack trace for detailed error information
+                    t.printStackTrace();
                 }
             });
     }

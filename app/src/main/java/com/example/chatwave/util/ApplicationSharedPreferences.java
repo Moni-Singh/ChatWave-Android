@@ -4,16 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 public class ApplicationSharedPreferences {
-
-    public static final String APPLICATION_PREFERENCES_NAME = "ChatWave";
-    public static void set(String key, boolean value, Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = preferences.edit();
-        edit.putBoolean(key, value);
-        edit.apply();
-    }
+    private static final String APPLICATION_PREFERENCES_NAME = "UserAuthPrefs";
 
     public static void saveObject(String key, Object value, Context context) {
 
@@ -28,4 +22,27 @@ public class ApplicationSharedPreferences {
         edit.putString(key, json);
         edit.apply();
     }
+    public static Object getSavedObject(String key, Object default_value, Class<?> className, Context context) {
+
+        Object retrievedObj = null;
+        SharedPreferences preferences = context.getSharedPreferences(APPLICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+
+        String retStr = preferences.getString(key, "");
+
+        if (retStr == null || retStr.isEmpty()) {
+            retrievedObj = default_value;
+        } else {
+
+            Gson gson = new Gson();
+            try {
+                retrievedObj = gson.fromJson(retStr, className);
+
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
+                retrievedObj = default_value;
+            }
+        }
+        return retrievedObj;
+    }
+
 }
