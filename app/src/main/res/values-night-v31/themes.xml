@@ -14,6 +14,6 @@
         <item name="android:statusBarColor">@color/lightGrey</item>
 
         <!-- Customize your theme here. -->
-        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>
