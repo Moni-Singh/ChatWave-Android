@@ -19,7 +19,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.chatwave.databinding.ActivityMainBinding;
+import com.example.chatwave.models.request.FcmTokenRequest;
+import com.example.chatwave.models.request.LoginRequest;
+import com.example.chatwave.models.response.FcmTokenResponse;
+import com.example.chatwave.webservices.ApiClient;
+import com.example.chatwave.webservices.ApiInterface;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
@@ -50,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().hide();
                 } else if (navDestination.getId() == R.id.navigation_home) {
                     getSupportActionBar().show();
-
                 }
             }
         });
@@ -64,11 +73,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                     String token = task.getResult();
                     Log.d(TAG, "FCM registration token: " + token);
+                    sendFcmToke(token);
                 });
 
         // Request notification permission
         askNotificationPermission();
     }
+
+    private void sendFcmToke(String token) {
+        FcmTokenRequest fcmTokenRequest = new FcmTokenRequest(token);
+        ApiInterface apiInterface = ApiClient.getAPIInterface();
+        apiInterface.sendFcmToken(fcmTokenRequest).enqueue(new Callback<FcmTokenResponse>() {
+            @Override
+            public void onResponse(Call<FcmTokenResponse> call, Response<FcmTokenResponse> response) {
+                if(response.isSuccessful()){
+                    FcmTokenResponse fcmTokenResponse = response.body();
+                    Log.d("fcmTokenSendResponse",fcmTokenResponse.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FcmTokenResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
