@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
@@ -23,10 +24,10 @@ import retrofit2.Response;
 public class LoginViewModel extends ViewModel {
 
     //Method to call Login Api
-    public void performLogin(String email , String password, NavController navController, View progressBar,Context mContext){
+    public void performLogin(String email , String password, NavController navController, Context mContext){
 
         if (email != null && !email.isEmpty() && password != null && !password.isEmpty()) {
-            progressBar.setVisibility(View.VISIBLE);
+
             // Create an instance of the LoginRequest
             LoginRequest loginRequest = new LoginRequest(email, password);
             ApiInterface apiInterface = ApiClient.getAPIInterface();
@@ -34,7 +35,6 @@ public class LoginViewModel extends ViewModel {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
-                        progressBar.setVisibility(View.GONE);
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
                             Gson gson = new Gson();
@@ -51,7 +51,6 @@ public class LoginViewModel extends ViewModel {
                 }
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    progressBar.setVisibility(View.GONE);
                     Log.e("Login Response", "Error occurred: " + t.getMessage());
                     t.printStackTrace();
                 }

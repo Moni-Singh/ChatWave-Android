@@ -38,15 +38,15 @@ public class LoginFragment extends Fragment {
         final TextView textUserName = binding.loginEmail;
         final  TextView textUserPassword = binding.loginPassword;
         View rootView = binding.getRoot();
-        ProgressBar progressBar = rootView.findViewById(R.id.progressBar);
 
         binding.btnLogin.setOnClickListener(view ->{
-//            String email = textUserName.getText().toString();
-//            String password = textUserPassword.getText().toString();
-            String email = "KishanHadiyal";
+
+//          String email = textUserName.getText().toString();
+//          String password = textUserPassword.getText().toString();
+            String email = "aniket";
             String password = "123456";
             NavController navController = Navigation.findNavController(view);
-            loginViewModel.performLogin(email,password,navController,progressBar,mContext);
+            loginViewModel.performLogin(email,password,navController,mContext);
         });
 
         textViewRegister.setOnClickListener(view ->

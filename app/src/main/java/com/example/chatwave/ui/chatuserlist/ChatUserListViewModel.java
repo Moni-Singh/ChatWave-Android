@@ -24,10 +24,8 @@ public class ChatUserListViewModel extends ViewModel {
         return chatUserListLiveData;
     }
 
-    public void chatUserList() {
-        String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGRkODU2N2QwZWNkYzlkNzk5NTcyZCIsImlhdCI6MTcxNzA1MzA1N30.WM9LTO4GjR1bWRDgNSyYnpT7A6EFswoY67p4noo0ZOU";
-        String authorizationHeader = "Bearer " + authToken;
-
+    public void chatUserList(String userToken) {
+        String authorizationHeader = "Bearer " + userToken;
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getChatUser(authorizationHeader).enqueue(new Callback<List<ChatUserListData>>() {
             @Override

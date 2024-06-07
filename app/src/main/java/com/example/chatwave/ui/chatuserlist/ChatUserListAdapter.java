@@ -15,12 +15,14 @@ import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.util.HelperMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapter.ChatUserViewHolder> {
 
     private ChatUserListAdapter.OnChatUserClickListener listener;
     private List<ChatUserListData> mChatUserList;
+    private List<ChatUserListData> mChatUserListFiltered;
     private Context mContext;
     private LoginResponse mLoginResponse;
 
@@ -29,6 +31,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
         this.mContext = mContext;
         this.mChatUserList = mChatUserList;
         this.mLoginResponse = loginResponse;
+        this.mChatUserListFiltered = new ArrayList<>(mChatUserList);
     }
     public void setOnUserClickListener(OnChatUserClickListener listener) {
         this.listener = listener;
@@ -43,15 +46,30 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ChatUserViewHolder holder, int position) {
-        ChatUserListData chatUser = mChatUserList.get(position);
+//        ChatUserListData chatUser = mChatUserList.get(position);
+        ChatUserListData chatUser = mChatUserListFiltered.get(position);
         holder.bind(chatUser);
     }
 
     @Override
     public int getItemCount() {
-        return mChatUserList.size();
+        return mChatUserListFiltered.size();
+//        return mChatUserList.size();
     }
-
+    public void filter(String query) {
+        mChatUserListFiltered.clear();
+        if (query.isEmpty()) {
+            mChatUserListFiltered.addAll(mChatUserList);
+        } else {
+            for (ChatUserListData user : mChatUserList) {
+                if (user.getReceiverDetails().userFirstName.toLowerCase().contains(query.toLowerCase()) ||
+                        user.getSenderDetails().userFirstName.toLowerCase().contains(query.toLowerCase())) {
+                    mChatUserListFiltered.add(user);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
     public class ChatUserViewHolder extends RecyclerView.ViewHolder {
         ChatUserListBinding binding;
 

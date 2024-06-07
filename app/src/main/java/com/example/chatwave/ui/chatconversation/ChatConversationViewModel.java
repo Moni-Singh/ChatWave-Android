@@ -28,15 +28,15 @@ public class ChatConversationViewModel extends ViewModel {
     }
 
 
+    public void getUserChatMessage(String senderId, String receiverId) {
 
-    public  void  getUserChatMessage(String senderId ,String receiverId){
 
-        UserChatMesaageRequest userChatMesaageRequest = new UserChatMesaageRequest(senderId,receiverId);
+        UserChatMesaageRequest userChatMesaageRequest = new UserChatMesaageRequest(senderId, receiverId);
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getUserChatMessage(userChatMesaageRequest).enqueue(new Callback<List<UserChatMessage>>() {
             @Override
             public void onResponse(Call<List<UserChatMessage>> call, Response<List<UserChatMessage>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<UserChatMessage> userChatMessage = response.body();
                     Gson gson = new Gson();
                     String jsonResponse = gson.toJson(userChatMessage);
@@ -51,26 +51,20 @@ public class ChatConversationViewModel extends ViewModel {
             }
         });
     }
-    public void sendTextMessage(String dataMessage, String  receiverId){
-        Log.d("clickerdfdfsf","yes in");
-        String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NGRkODU2N2QwZWNkYzlkNzk5NTcyZCIsImlhdCI6MTcxNzc2MDQ1OCwiZXhwIjoxNzE3ODQ2ODU4fQ.YDijo-d4UlqEI7PhDzKKTH1kwTstsH1GiKq0_6wRb7I";
-        String authorizationHeader = "Bearer " + authToken;
-//      String receiverId = "6655ac6530d9da371bc9d99f";
-      String data = "Hello mam work fast";
-      String messageType = "textMessage";
-      Log.d("resceiverId",receiverId);
-      Log.d("dataMessage",dataMessage);
 
-        SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId,dataMessage,messageType);
+    public void sendTextMessage(String dataMessage, String receiverId,String userToken) {
+        String authorizationHeader = "Bearer " + userToken;
+        String messageType = "textMessage";
+        SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId, dataMessage, messageType);
         ApiInterface apiInterface = ApiClient.getAPIInterface();
-        apiInterface.sendChatMessage(authorizationHeader,sendChatMessageRequest).enqueue(new Callback<SendChatMessageResponse>() {
+        apiInterface.sendChatMessage(authorizationHeader, sendChatMessageRequest).enqueue(new Callback<SendChatMessageResponse>() {
             @Override
             public void onResponse(Call<SendChatMessageResponse> call, Response<SendChatMessageResponse> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     SendChatMessageResponse sendChatMessageResposne = response.body();
                     Gson gson = new Gson();
                     String resposne = gson.toJson(sendChatMessageResposne);
-                    Log.d("response sendChatMessage",resposne);
+                    Log.d("response sendChatMessage", resposne);
                 }
             }
             @Override

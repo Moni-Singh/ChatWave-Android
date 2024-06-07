@@ -36,12 +36,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:cursorVisible="false"
+                android:cursorVisible="true"
                 android:layout_marginHorizontal="@dimen/_5sdp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:hint="Enter Your Message"
-                android:maxLines="1"
+                android:maxLines="3"
                 android:padding="@dimen/_5sdp" />
         </LinearLayout>
 

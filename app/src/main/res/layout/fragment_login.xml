@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        <include-->
+<!--            android:id="@+id/progressbar"-->
+<!--            layout="@layout/include_progressbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content" />-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
@@ -143,9 +148,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-        <include
-            android:id="@+id/progressbar"
-            layout="@layout/include_progressbar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

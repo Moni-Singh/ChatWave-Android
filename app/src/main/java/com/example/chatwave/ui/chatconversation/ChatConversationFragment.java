@@ -21,6 +21,7 @@ import com.example.chatwave.R;
 import com.example.chatwave.databinding.FragmentChatConversationBinding;
 import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
 import com.example.chatwave.models.response.LoginResponse;
+import com.example.chatwave.models.response.UserListResponse;
 import com.example.chatwave.util.ApplicationSharedPreferences;
 import com.google.gson.Gson;
 
@@ -34,6 +35,7 @@ public class ChatConversationFragment extends Fragment {
     private  String chatReceiverId ;
     private  String senderId ;
     private  String receiverId;
+    private String  userToken;
 
 
     public static ChatConversationFragment newInstance() {
@@ -56,38 +58,47 @@ public class ChatConversationFragment extends Fragment {
         chatConversationViewModel.getUserMessageHistory().observe(getViewLifecycleOwner(),chatConversation ->{
             if(chatConversation !=null){
                 chatConversationAdapter = new ChatConversationAdapter(chatConversation,storedLoginResponse);
+                userToken = storedLoginResponse.getToken();
                 userChatHistoryRv.setAdapter(chatConversationAdapter);
             }
         });
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             ChatUserListData chatUserData = getArguments().getSerializable("chatUserList", ChatUserListData.class);
-            Gson gson = new Gson();
-            String jsonResponse = gson.toJson(chatUserData);
-
-            if (chatUserData != null) {
-                 senderId = chatUserData.getSenderDetails().userId;
-                 receiverId = chatUserData.getReceiverDetails().userId;
+            UserListResponse userListResponse = getArguments().getSerializable("user",UserListResponse.class);
+            if(userListResponse != null){
+                ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(userListResponse.getFirstname());
+                chatReceiverId = userListResponse.get_id();
+                senderId = storedLoginResponse.getId();
+                receiverId = userListResponse.get_id();
+                userToken = storedLoginResponse.getToken();
                 chatConversationViewModel.getUserChatMessage(senderId,receiverId);
-                if (storedLoginResponse != null) {
-                    String loginUserId = storedLoginResponse.getId();
-                    if (loginUserId.equals(senderId) || loginUserId.equals(receiverId)) {
-                        if (loginUserId.equals(senderId)) {
-                            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(chatUserData.getReceiverDetails().userFirstName);
-                             chatReceiverId = chatUserData.getReceiverDetails().userId;
-                        } else {
-                            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(chatUserData.getSenderDetails().userFirstName);
-                             chatReceiverId = chatUserData.getSenderDetails().userId;
+            }else if(chatUserData != null){
+                    senderId = chatUserData.getSenderDetails().userId;
+                    receiverId = chatUserData.getReceiverDetails().userId;
+                    chatConversationViewModel.getUserChatMessage(senderId,receiverId);
+                    if (storedLoginResponse != null) {
+                        String loginUserId = storedLoginResponse.getId();
+                        if (loginUserId.equals(senderId) || loginUserId.equals(receiverId)) {
+                            if (loginUserId.equals(senderId)) {
+                                ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(chatUserData.getReceiverDetails().userFirstName);
+                                chatReceiverId = chatUserData.getReceiverDetails().userId;
+                            } else {
+                                ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle(chatUserData.getSenderDetails().userFirstName);
+                                chatReceiverId = chatUserData.getSenderDetails().userId;
+                            }
                         }
                     }
-                }
             }
         }
         final EditText edtMessageBox = binding.edtmessagebox;
         binding.userSendMessage.setOnClickListener(view ->{
             String dataMessage = edtMessageBox.getText().toString();
-            chatConversationViewModel.sendTextMessage(dataMessage,chatReceiverId);
+            chatConversationViewModel.sendTextMessage(dataMessage,chatReceiverId,userToken);
             chatConversationViewModel.getUserChatMessage(senderId,receiverId);
+
+            // Clear the EditText
+            edtMessageBox.setText("");
         });
         return  root;
     }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
     private Context mContext;
     private RecyclerView chatUserListRecycleView;
     private ChatUserListAdapter chatUserListAdapter;
+    private  String userToken;
 
     public static ChatUserListFragment newInstance() {
         return new ChatUserListFragment();
@@ -41,14 +43,32 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
         binding = FragmentChatUserListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         mContext = getContext();
-        chatUserListViewModel.chatUserList();
+        LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
+        userToken = storedLoginResponse.getToken();
+        chatUserListViewModel.chatUserList(userToken);
         binding.addNewChatUserFab.setOnClickListener(view ->
         {
-            Log.d("clicekd","clciekd");
             Navigation.findNavController(view).navigate(R.id.navigation_add_new_user);
         });
+        binding.chatUserListSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (chatUserListAdapter != null) {
+                    chatUserListAdapter.filter(query);
+                }
+                return false;
+            }
 
-        LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (chatUserListAdapter != null) {
+                    chatUserListAdapter.filter(newText);
+                }
+                return false;
+            }
+        });
+
+
         chatUserListRecycleView = root.findViewById(R.id.chatUserListRv);
         chatUserListRecycleView.setLayoutManager(new LinearLayoutManager(mContext));
         // Observe the LiveData from ViewModel

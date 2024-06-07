@@ -12,15 +12,25 @@
           "package_name": "com.example.chatwave"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "117155869361549100593",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyA1lIe4Qg9GIvTYpIQE9-Dau8iKExQQMSA"
+          "current_key": "AIzaSyBkY_w9GEqpL8MpqHH4HYBiaHX3M7JVChc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117155869361549100593",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

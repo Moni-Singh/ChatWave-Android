@@ -11,16 +11,18 @@ import com.example.chatwave.R;
 import com.example.chatwave.databinding.NewChatUserlistBinding;
 import com.example.chatwave.models.response.UserListResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHolder> {
 
     private List<UserListResponse> userList;
     private OnUserClickListener listener;
+    private List<UserListResponse> userListFiltered;
 
     public UserListAdapter(List<UserListResponse> userList) {
         this.userList = userList;
-    }
+        this.userListFiltered = new ArrayList<>(userList);    }
 
     public void setOnUserClickListener(OnUserClickListener listener) {
         this.listener = listener;
@@ -61,6 +63,19 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
                 }
             });
         }
+    }
+    public void filter(String query) {
+        userListFiltered.clear();
+        if (query.isEmpty()) {
+            userListFiltered.addAll(userList);
+        } else {
+            for (UserListResponse user : userList) {
+                if (user.getFirstname().toLowerCase().contains(query.toLowerCase())) {
+                    userListFiltered.add(user);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public interface OnUserClickListener {

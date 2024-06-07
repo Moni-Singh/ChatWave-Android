@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,24 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
                 userListAdapter = new UserListAdapter(userListResponses);
                 userListAdapter.setOnUserClickListener(this);
                 userListRecycleView.setAdapter(userListAdapter);
+            }
+        });
+        // Set up search functionality
+        binding.userListSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (userListAdapter != null) {
+                    userListAdapter.filter(query);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (userListAdapter != null) {
+                    userListAdapter.filter(newText);
+                }
+                return false;
             }
         });
         // Retrieving stored login response
