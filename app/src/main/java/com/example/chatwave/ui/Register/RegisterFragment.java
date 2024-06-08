@@ -1,6 +1,7 @@
 package com.example.chatwave.ui.Register;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,9 @@ public class RegisterFragment extends Fragment {
     private FragmentRegisterBinding binding;
     String selectedGender = "";
     String selectedDOB = "";
+    private Context mContext;
+    private View progressLayout;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RegisterViewModel registerViewModel =
@@ -34,6 +38,8 @@ public class RegisterFragment extends Fragment {
 
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        mContext = getContext();
+        progressLayout = binding.progressLayout.getRoot();
 
         final TextView textViewLogin = binding.textViewLogin;
         final TextView textFirstName = binding.edtFirstName;
@@ -79,7 +85,7 @@ public class RegisterFragment extends Fragment {
             String confirmpassword = textConfirmPassword.getText().toString();
             String role = "user";
             NavController navController = Navigation.findNavController(view);
-            registerViewModel.perfomRegister(firstname,lastname,username,email,selectedGender,selectedDOB,password,confirmpassword,role,navController);
+            registerViewModel.perfomRegister(firstname,lastname,username,email,selectedGender,selectedDOB,password,confirmpassword,role,navController,mContext,progressLayout);
         });
 
         textViewLogin.setOnClickListener(view->{

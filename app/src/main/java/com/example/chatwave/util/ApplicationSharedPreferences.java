@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class ApplicationSharedPreferences {
     private static final String APPLICATION_PREFERENCES_NAME = "UserAuthPrefs";
+    private static final String KEY_FCM_TOKEN = "fcm_token";
 
     public static void saveObject(String key, Object value, Context context) {
 
@@ -43,6 +44,18 @@ public class ApplicationSharedPreferences {
             }
         }
         return retrievedObj;
+    }
+    public static void saveFCMToken(Context context, String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(APPLICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_FCM_TOKEN, token);
+        editor.apply();
+    }
+
+    // Retrieve FCM token from SharedPreferences
+    public static String getFCMToken(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(APPLICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_FCM_TOKEN, null);
     }
 
 }

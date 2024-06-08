@@ -303,7 +303,9 @@
             app:layout_constraintHorizontal_bias="0.452"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <include
+            android:id="@+id/progress_layout"
+            layout="@layout/include_progressbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -10,11 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<!--        <include-->
-<!--            android:id="@+id/progressbar"-->
-<!--            layout="@layout/include_progressbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content" />-->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
@@ -22,7 +17,6 @@
             android:background="@drawable/login_design"
             android:padding="@dimen/_90sdp"
             app:layout_constraintTop_toTopOf="parent">
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,7 +97,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword" />
 
-
             <TextView
                 android:id="@+id/tvMsgToRegister"
                 android:layout_width="wrap_content"
@@ -128,27 +121,26 @@
                 app:layout_constraintHorizontal_bias="0.148"
                 app:layout_constraintStart_toEndOf="@+id/tvMsgToRegister"
                 app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_20sdp"
-            android:layout_marginTop="48dp"
+            android:layout_margin="@dimen/_50sdp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/chatwave"
             android:textColor="@color/black"
             android:textFontWeight="400"
             android:textSize="@dimen/_30sdp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.452"
+            app:layout_constraintHorizontal_bias="0.547"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-
+        <include
+            android:id="@+id/progress_layout"
+            layout="@layout/include_progressbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

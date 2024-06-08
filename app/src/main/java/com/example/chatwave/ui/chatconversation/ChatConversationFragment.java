@@ -51,7 +51,6 @@ public class ChatConversationFragment extends Fragment {
         View root = binding.getRoot();
         mContext = getContext();
 
-
         userChatHistoryRv= root.findViewById(R.id.userChatHistoryRv);
         userChatHistoryRv.setLayoutManager(new LinearLayoutManager(mContext));
         LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
@@ -60,6 +59,7 @@ public class ChatConversationFragment extends Fragment {
                 chatConversationAdapter = new ChatConversationAdapter(chatConversation,storedLoginResponse);
                 userToken = storedLoginResponse.getToken();
                 userChatHistoryRv.setAdapter(chatConversationAdapter);
+                userChatHistoryRv.scrollToPosition(chatConversationAdapter.getItemCount() - 1);
             }
         });
 
@@ -95,10 +95,17 @@ public class ChatConversationFragment extends Fragment {
         binding.userSendMessage.setOnClickListener(view ->{
             String dataMessage = edtMessageBox.getText().toString();
             chatConversationViewModel.sendTextMessage(dataMessage,chatReceiverId,userToken);
-            chatConversationViewModel.getUserChatMessage(senderId,receiverId);
-
-            // Clear the EditText
-            edtMessageBox.setText("");
+            chatConversationViewModel.getSendChatMessageLiveData().observe(getViewLifecycleOwner(), sendChatMessageResponse -> {
+                if (sendChatMessageResponse != null) {
+                    chatConversationViewModel.getUserChatMessage(senderId, receiverId);
+                }
+            });
+            chatConversationViewModel.getSendChatMessageLiveData().observe(getViewLifecycleOwner(), sendChatMessageResponse -> {
+                if (sendChatMessageResponse != null) {
+                    userChatHistoryRv.scrollToPosition(chatConversationAdapter.getItemCount() - 1);
+                    edtMessageBox.setText("");
+                }
+            });
         });
         return  root;
     }

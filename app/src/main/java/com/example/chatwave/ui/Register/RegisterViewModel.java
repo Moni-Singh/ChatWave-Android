@@ -1,6 +1,9 @@
 package com.example.chatwave.ui.Register;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
@@ -19,21 +22,17 @@ public class RegisterViewModel extends ViewModel {
 
   public void perfomRegister(String firstname, String lastname, String username, String email,
                              String selectedGender, String selectedDOB, String password,
-                             String confirmPassword , String role, NavController navController) {
+                             String confirmPassword , String role, NavController navController, Context mContext, View progressLayout) {
 
+    if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null ||email.isEmpty()
+    || selectedGender == null || selectedGender.isEmpty() || password == null || password.isEmpty() || selectedDOB == null|| selectedDOB.isEmpty() ||
+    confirmPassword == null || confirmPassword.isEmpty() || role ==null ||role.isEmpty()) {
+      Toast.makeText(mContext, "Fill all the details", Toast.LENGTH_SHORT).show();
+      return;
+    }
 
-    Log.d("Clicked", "Register Clicked");
-    Log.d("Firstname", firstname);
-    Log.d("Lastname", lastname);
-    Log.d("Username", username);
-    Log.d("Email", email);
-    Log.d("Gender", selectedGender);
-    Log.d("DOB", selectedDOB);
-    Log.d("Password", password);
-    Log.d("ConfirmPassword", confirmPassword);
-    Log.d("Role", role);
+    progressLayout.setVisibility(View.VISIBLE);
 
-    Log.d("Clicked","Register Clicked");
     RegisterRequest registerRequest = new RegisterRequest(firstname,lastname,username,email,selectedGender,selectedDOB,password,confirmPassword,role);
     ApiInterface apiInterface = ApiClient.getAPIInterface();
 
@@ -41,17 +40,17 @@ public class RegisterViewModel extends ViewModel {
       @Override
       public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
         if(response.isSuccessful()){
+          progressLayout.setVisibility(View.GONE);
           navController.navigate(R.id.navigation_login);
           RegisterResponse registerResponse = response.body();
-          Log.d("Response Successfull",registerResponse.message);
-
+          Log.d("Register Response Sucessfull",registerResponse.message);
         }
       }
-
       @Override
       public void onFailure(Call<RegisterResponse> call, Throwable t) {
-        Log.e("Login Response", "Error occurred: " + t.getMessage());
+        Log.e("Register  Response", "Error occurred: " + t.getMessage());
         t.printStackTrace();
+        progressLayout.setVisibility(View.GONE);
       }
     });
   }

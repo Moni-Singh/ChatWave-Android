@@ -1,6 +1,5 @@
 package com.example.chatwave.webservices;
 
-import com.example.chatwave.models.request.FcmTokenRequest;
 import com.example.chatwave.models.request.LoginRequest;
 import com.example.chatwave.models.request.RegisterRequest;
 import com.example.chatwave.models.request.SendChatMessageRequest;
@@ -34,8 +33,8 @@ public interface ApiInterface {
     @GET(AppUrls.USER_LIST)
     Call<List<UserListResponse>> getUserList();
 
-    @POST(AppUrls.FCM_TOKEN)
-    Call<FcmTokenResponse>sendFcmToken(@Body FcmTokenRequest fcmTokenRequest );
+//    @POST(AppUrls.FCM_TOKEN)
+//    Call<FcmTokenResponse>sendFcmToken(@Body FcmTokenRequest fcmTokenRequest );
 
     @GET(AppUrls.CHAT_USER_LIST)
     Call<List<ChatUserListData>> getChatUser(@Header("Authorization") String authorization);

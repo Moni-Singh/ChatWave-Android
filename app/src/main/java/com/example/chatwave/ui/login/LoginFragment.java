@@ -1,5 +1,6 @@
 package com.example.chatwave.ui.login;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private Context mContext;
-
+    private ProgressDialog progressDialog;
+    private View progressLayout;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -33,20 +35,18 @@ public class LoginFragment extends Fragment {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         mContext = getContext();
+        progressLayout = binding.progressLayout.getRoot();
 
         final TextView textViewRegister = binding.textViewRegister;
         final TextView textUserName = binding.loginEmail;
         final  TextView textUserPassword = binding.loginPassword;
-        View rootView = binding.getRoot();
-
         binding.btnLogin.setOnClickListener(view ->{
-
-//          String email = textUserName.getText().toString();
-//          String password = textUserPassword.getText().toString();
-            String email = "aniket";
-            String password = "123456";
+          String email = textUserName.getText().toString();
+          String password = textUserPassword.getText().toString();
+//            String email = "aniket";
+//            String password = "123456";
             NavController navController = Navigation.findNavController(view);
-            loginViewModel.performLogin(email,password,navController,mContext);
+            loginViewModel.performLogin(email,password,navController,mContext,progressLayout);
         });
 
         textViewRegister.setOnClickListener(view ->

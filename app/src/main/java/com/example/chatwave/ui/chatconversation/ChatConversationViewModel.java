@@ -22,11 +22,14 @@ import retrofit2.Response;
 
 public class ChatConversationViewModel extends ViewModel {
     private MutableLiveData<List<UserChatMessage>> chatUserListLiveData = new MutableLiveData<>();
+    private MutableLiveData<SendChatMessageResponse> sendChatMessageLiveData = new MutableLiveData<>();
 
     public LiveData<List<UserChatMessage>> getUserMessageHistory() {
         return chatUserListLiveData;
     }
-
+    public LiveData<SendChatMessageResponse> getSendChatMessageLiveData() {
+        return sendChatMessageLiveData;
+    }
 
     public void getUserChatMessage(String senderId, String receiverId) {
 
@@ -53,6 +56,7 @@ public class ChatConversationViewModel extends ViewModel {
     }
 
     public void sendTextMessage(String dataMessage, String receiverId,String userToken) {
+        Log.d("fvghdfhgmjfhdg","clicked");
         String authorizationHeader = "Bearer " + userToken;
         String messageType = "textMessage";
         SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId, dataMessage, messageType);
@@ -65,6 +69,7 @@ public class ChatConversationViewModel extends ViewModel {
                     Gson gson = new Gson();
                     String resposne = gson.toJson(sendChatMessageResposne);
                     Log.d("response sendChatMessage", resposne);
+                    sendChatMessageLiveData.setValue(sendChatMessageResposne);
                 }
             }
             @Override
