@@ -32,9 +32,6 @@ public class NewChatUserViewModel extends ViewModel {
             public void onResponse(Call<List<UserListResponse>> call, Response<List<UserListResponse>> response) {
                 if(response.isSuccessful()){
                     List<UserListResponse> userListResponseList = response.body();
-                    Gson gson = new Gson();
-                    String jsonResponse = gson.toJson(userListResponseList);
-                    Log.d("responseApi",jsonResponse);
                     userListLiveData.setValue(userListResponseList);
                 }
             }

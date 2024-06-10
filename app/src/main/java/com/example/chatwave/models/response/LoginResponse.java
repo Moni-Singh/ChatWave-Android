@@ -20,6 +20,10 @@ public class LoginResponse {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public  String getToken(){
         return token;
     }

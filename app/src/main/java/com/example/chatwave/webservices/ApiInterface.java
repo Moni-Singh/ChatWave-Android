@@ -6,6 +6,7 @@ import com.example.chatwave.models.request.SendChatMessageRequest;
 import com.example.chatwave.models.request.UserChatMessage.UserChatMesaageRequest;
 import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
 import com.example.chatwave.models.response.FcmTokenResponse;
+import com.example.chatwave.models.response.LogOutResponse;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.models.response.RegisterResponse;
 import com.example.chatwave.models.response.SendChatMessageResponse;
@@ -33,9 +34,6 @@ public interface ApiInterface {
     @GET(AppUrls.USER_LIST)
     Call<List<UserListResponse>> getUserList();
 
-//    @POST(AppUrls.FCM_TOKEN)
-//    Call<FcmTokenResponse>sendFcmToken(@Body FcmTokenRequest fcmTokenRequest );
-
     @GET(AppUrls.CHAT_USER_LIST)
     Call<List<ChatUserListData>> getChatUser(@Header("Authorization") String authorization);
 
@@ -44,5 +42,8 @@ public interface ApiInterface {
 
     @POST(AppUrls.SEND_CHAT_MESSAGE)
     Call<SendChatMessageResponse> sendChatMessage(@Header("Authorization") String authorization, @Body SendChatMessageRequest sendChatMessageRequest);
+
+    @GET(AppUrls.USER_LOGOUT)
+    Call<LogOutResponse>userLogout(@Header("Authorization") String authorization);
 
 }

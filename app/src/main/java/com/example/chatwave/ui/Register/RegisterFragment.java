@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,9 +34,12 @@ public class RegisterFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        // Initialize the ViewModel
         RegisterViewModel registerViewModel =
                 new ViewModelProvider(this).get(RegisterViewModel.class);
 
+        // Inflate the fragment layout using View Binding
         binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         mContext = getContext();
@@ -46,20 +50,21 @@ public class RegisterFragment extends Fragment {
         final TextView textLastName = binding.edtLastName;
         final TextView textUserName = binding.edtUserName;
         final TextView textEmail = binding.edtEmail;
-        final  TextView textPassword = binding.edtPassword;
+        final TextView textPassword = binding.edtPassword;
         final TextView textConfirmPassword = binding.edtconfirmPassword;
         final RadioGroup radioGroup = binding.radioGrp;
 
+        // Set a listener for gender selection
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton selectedRadioButton = group.findViewById(checkedId);
             if (selectedRadioButton != null) {
                 String selectedGenderType = selectedRadioButton.getText().toString();
-            Log.d("Gender",selectedGender);
-            selectedGender = selectedGenderType;
+                Log.d("Gender", selectedGender);
+                selectedGender = selectedGenderType;
 
             }
         });
-
+        // Set a listener for date of birth selection
         binding.edtDateOfBirth.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -75,26 +80,24 @@ public class RegisterFragment extends Fragment {
                     year, month, dayOfMonth);
             datePickerDialog.show();
         });
-
-        binding.btnRegister.setOnClickListener(view ->{
+        // Set a listener for the register button click
+        binding.btnRegister.setOnClickListener(view -> {
             String firstname = textFirstName.getText().toString();
             String lastname = textLastName.getText().toString();
-            String username= textUserName.getText().toString();
+            String username = textUserName.getText().toString();
             String email = textEmail.getText().toString();
             String password = textPassword.getText().toString();
             String confirmpassword = textConfirmPassword.getText().toString();
             String role = "user";
             NavController navController = Navigation.findNavController(view);
-            registerViewModel.perfomRegister(firstname,lastname,username,email,selectedGender,selectedDOB,password,confirmpassword,role,navController,mContext,progressLayout);
+            registerViewModel.perfomRegister(firstname, lastname, username, email, selectedGender, selectedDOB, password, confirmpassword, role, navController, mContext, progressLayout);
         });
-
-        textViewLogin.setOnClickListener(view->{
+        textViewLogin.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_login);
         });
 
         return root;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

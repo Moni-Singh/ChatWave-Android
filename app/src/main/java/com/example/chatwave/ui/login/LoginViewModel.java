@@ -26,7 +26,7 @@ public class LoginViewModel extends ViewModel {
 
     //Method to call Login Api
     public void performLogin(String email , String password, NavController navController, Context mContext,View progressLayout){
-
+        // Check if any of the input fields are empty
      if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
             Toast.makeText(mContext, "Email or Password cannot be empty", Toast.LENGTH_SHORT).show();
             return;
@@ -45,9 +45,6 @@ public class LoginViewModel extends ViewModel {
                         LoginResponse loginResponse = response.body();
                         if (loginResponse != null) {
                             progressLayout.setVisibility(View.GONE);
-                            Gson gson = new Gson();
-                            String jsonResponse = gson.toJson(loginResponse);
-                            Log.d("Login Response JSON", jsonResponse);
                             ApplicationSharedPreferences.saveObject("loginResponse", loginResponse, mContext);
                             navController.navigate(R.id.navigation_chat_user);
                             SharedPreferences sharedPreferences = mContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);

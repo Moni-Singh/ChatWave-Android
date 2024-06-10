@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="end"
     android:gravity="end"
+    android:layout_marginStart="@dimen/_25sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
     android:paddingBottom="@dimen/_5sdp">
 
-    <TextView
-        android:id="@+id/textSendMessage"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
         android:background="@drawable/send_card_design"
-        android:paddingStart="@dimen/_12sdp"
-        android:backgroundTint="#50727B"
-        android:paddingTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:paddingEnd="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:text="Hello, this is a chat message by chaku"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14ssp" />
+        android:backgroundTint="@color/lightGreen"
+        android:padding="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/textSendMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_2sdp"
+            android:text="H"
+            android:layout_marginEnd="@dimen/_35sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSendMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="09:60pm"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textSendMessage"
+            app:layout_constraintTop_toBottomOf="@+id/textSendMessage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </RelativeLayout>

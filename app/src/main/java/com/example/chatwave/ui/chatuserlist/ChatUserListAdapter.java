@@ -46,7 +46,6 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ChatUserViewHolder holder, int position) {
-//        ChatUserListData chatUser = mChatUserList.get(position);
         ChatUserListData chatUser = mChatUserListFiltered.get(position);
         holder.bind(chatUser);
     }
@@ -54,7 +53,6 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
     @Override
     public int getItemCount() {
         return mChatUserListFiltered.size();
-//        return mChatUserList.size();
     }
     public void filter(String query) {
         mChatUserListFiltered.clear();
@@ -110,7 +108,6 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
             });
         }
     }
-
     public interface OnChatUserClickListener {
         void onChatUserClick(ChatUserListData chatUserListData);
     }

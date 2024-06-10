@@ -193,7 +193,8 @@
                     android:drawablePadding="15dp"
                     android:drawableTint="@color/black"
                     android:imeOptions="actionDone"
-                    android:inputType="text"
+                    android:clickable="true"
+                    android:inputType="date"
                     android:padding="@dimen/_12sdp" />
             </com.google.android.material.textfield.TextInputLayout>
 

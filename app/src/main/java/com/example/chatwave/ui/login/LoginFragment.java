@@ -36,15 +36,21 @@ public class LoginFragment extends Fragment {
         View root = binding.getRoot();
         mContext = getContext();
         progressLayout = binding.progressLayout.getRoot();
-
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        Log.d("isLoginId", String.valueOf(isLoggedIn));
+//        if (isLoggedIn) {
+//            NavController navController = Navigation.findNavController(requireActivity(), R.id.navigation_chat_user);
+//            navController.navigate(R.id.navigation_chat_user);
+//        }
         final TextView textViewRegister = binding.textViewRegister;
         final TextView textUserName = binding.loginEmail;
         final  TextView textUserPassword = binding.loginPassword;
         binding.btnLogin.setOnClickListener(view ->{
-          String email = textUserName.getText().toString();
-          String password = textUserPassword.getText().toString();
-//            String email = "aniket";
-//            String password = "123456";
+//          String email = textUserName.getText().toString();
+//          String password = textUserPassword.getText().toString();
+            String email = "KishanHadiyal";
+            String password = "123456";
             NavController navController = Navigation.findNavController(view);
             loginViewModel.performLogin(email,password,navController,mContext,progressLayout);
         });
@@ -53,10 +59,8 @@ public class LoginFragment extends Fragment {
         {
             Navigation.findNavController(view).navigate(R.id.navigation_register);
         });
-
         return root;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

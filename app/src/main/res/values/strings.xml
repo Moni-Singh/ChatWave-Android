@@ -20,6 +20,9 @@
     <string name="email">Email</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="logout">Logout</string>
+    <string name="menu">Menu</string>
+    <string name="userProfile">UserProfile</string>
     <string name="already_member_then_login">Already a member login !</string>
 
     //For Login

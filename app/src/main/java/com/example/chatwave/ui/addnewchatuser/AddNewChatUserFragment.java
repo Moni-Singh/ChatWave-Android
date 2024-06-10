@@ -53,6 +53,7 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
                 userListRecycleView.setAdapter(userListAdapter);
             }
         });
+
         // Set up search functionality
         binding.userListSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -71,6 +72,7 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
                 return false;
             }
         });
+
         // Retrieving stored login response
         LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
         if (storedLoginResponse != null) {

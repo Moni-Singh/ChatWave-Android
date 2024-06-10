@@ -11,5 +11,6 @@ public class AppUrls {
     public static final String CHAT_USER_LIST = "user/conversationList";
     public static final String USER_CHAT_MESSAGE = "chat/getMessage";
     public static final String SEND_CHAT_MESSAGE = "chat/message";
+    public static final String USER_LOGOUT = "logout";
 
 }

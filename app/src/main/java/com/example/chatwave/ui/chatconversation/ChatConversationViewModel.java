@@ -31,9 +31,8 @@ public class ChatConversationViewModel extends ViewModel {
         return sendChatMessageLiveData;
     }
 
+    //Method to call getUserChatMessages APi
     public void getUserChatMessage(String senderId, String receiverId) {
-
-
         UserChatMesaageRequest userChatMesaageRequest = new UserChatMesaageRequest(senderId, receiverId);
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getUserChatMessage(userChatMesaageRequest).enqueue(new Callback<List<UserChatMessage>>() {
@@ -41,9 +40,6 @@ public class ChatConversationViewModel extends ViewModel {
             public void onResponse(Call<List<UserChatMessage>> call, Response<List<UserChatMessage>> response) {
                 if (response.isSuccessful()) {
                     List<UserChatMessage> userChatMessage = response.body();
-                    Gson gson = new Gson();
-                    String jsonResponse = gson.toJson(userChatMessage);
-                    Log.d("jsonUserChatMessageResposne", jsonResponse);
                     chatUserListLiveData.setValue(userChatMessage);
                 }
             }
@@ -55,8 +51,8 @@ public class ChatConversationViewModel extends ViewModel {
         });
     }
 
+    //Method to call sendTextMessages Api
     public void sendTextMessage(String dataMessage, String receiverId,String userToken) {
-        Log.d("fvghdfhgmjfhdg","clicked");
         String authorizationHeader = "Bearer " + userToken;
         String messageType = "textMessage";
         SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId, dataMessage, messageType);
@@ -68,7 +64,6 @@ public class ChatConversationViewModel extends ViewModel {
                     SendChatMessageResponse sendChatMessageResposne = response.body();
                     Gson gson = new Gson();
                     String resposne = gson.toJson(sendChatMessageResposne);
-                    Log.d("response sendChatMessage", resposne);
                     sendChatMessageLiveData.setValue(sendChatMessageResposne);
                 }
             }

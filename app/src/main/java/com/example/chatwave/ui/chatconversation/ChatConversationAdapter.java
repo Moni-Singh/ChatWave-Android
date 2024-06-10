@@ -14,6 +14,7 @@ import com.example.chatwave.databinding.UserSendMessageBinding;
 import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.models.response.UserChatMessage.UserChatMessage;
+import com.example.chatwave.util.HelperMethod;
 
 import java.util.List;
 
@@ -23,11 +24,6 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<UserChatMessage> mUserChatMessage;
     private LoginResponse mLoginResponse;
 
-    public void setChatUserList(List<UserChatMessage> userChatMessages) {
-        userChatMessages.clear();
-        userChatMessages.addAll(mUserChatMessage);
-        notifyDataSetChanged();
-    }
     public ChatConversationAdapter(List<UserChatMessage> userChatMessages, LoginResponse loginResponse) {
         this.mUserChatMessage = userChatMessages;
         this.mLoginResponse = loginResponse;
@@ -74,8 +70,11 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
             binding = UserSendMessageBinding.bind(itemView);
         }
         public void bind(UserChatMessage userChatMessage) {
-            Log.d("DataUserChat",userChatMessage.messageType);
             binding.textSendMessage.setText(userChatMessage.data);
+            String timestamp = userChatMessage.getCreatedAt();
+            String time = HelperMethod.convertTimestampToTime(timestamp);
+            System.out.println("Formatted Time: " + time);
+            binding.tvSendMessageTime.setText(time);
         }
     }
 
@@ -86,8 +85,11 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
             binding = UserReceiveMessageBinding.bind(itemView);
         }
         public void bind(UserChatMessage userChatMessage) {
-            Log.d("DataUserChat ReceiveViewHolder",userChatMessage.data);
             binding.textReceiveMessage.setText(userChatMessage.data);
+            String timestamp = userChatMessage.getCreatedAt();
+            String time = HelperMethod.convertTimestampToTime(timestamp);
+            System.out.println("Formatted Time: " + time);
+            binding.tvReceiveMessageTime.setText(time);
         }
     }
 }
