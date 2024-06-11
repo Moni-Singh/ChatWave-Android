@@ -27,6 +27,7 @@ public class ChatConversationViewModel extends ViewModel {
     public LiveData<List<UserChatMessage>> getUserMessageHistory() {
         return chatUserListLiveData;
     }
+
     public LiveData<SendChatMessageResponse> getSendChatMessageLiveData() {
         return sendChatMessageLiveData;
     }
@@ -43,6 +44,7 @@ public class ChatConversationViewModel extends ViewModel {
                     chatUserListLiveData.setValue(userChatMessage);
                 }
             }
+
             @Override
             public void onFailure(Call<List<UserChatMessage>> call, Throwable t) {
                 Log.e("User Chat Message Resposne Failed", "Error occurred: " + t.getMessage());
@@ -52,7 +54,7 @@ public class ChatConversationViewModel extends ViewModel {
     }
 
     //Method to call sendTextMessages Api
-    public void sendTextMessage(String dataMessage, String receiverId,String userToken) {
+    public void sendTextMessage(String dataMessage, String receiverId, String userToken) {
         String authorizationHeader = "Bearer " + userToken;
         String messageType = "textMessage";
         SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId, dataMessage, messageType);
@@ -62,11 +64,10 @@ public class ChatConversationViewModel extends ViewModel {
             public void onResponse(Call<SendChatMessageResponse> call, Response<SendChatMessageResponse> response) {
                 if (response.isSuccessful()) {
                     SendChatMessageResponse sendChatMessageResposne = response.body();
-                    Gson gson = new Gson();
-                    String resposne = gson.toJson(sendChatMessageResposne);
                     sendChatMessageLiveData.setValue(sendChatMessageResposne);
                 }
             }
+
             @Override
             public void onFailure(Call<SendChatMessageResponse> call, Throwable t) {
                 Log.e("API Error", "Failed to this  SendChatMessageResposne: " + t.getMessage());

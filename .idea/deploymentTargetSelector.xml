@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-06-11T09:00:49.585229700Z">
+        <DropdownSelection timestamp="2024-06-12T06:42:19.285148700Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\moni.singh\.android\avd\Moni_3.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\moni.singh\.android\avd\Chatwave.avd" />
             </handle>
           </Target>
         </DropdownSelection>

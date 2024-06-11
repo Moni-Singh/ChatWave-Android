@@ -92,15 +92,14 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
         binding = null;
     }
 
+    //OnClick on user
     @Override
     public void onUserClick(UserListResponse user) {
-        String firstName = user.getFirstname();
-        Log.d("FirstName", firstName);
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", user);
 
         Navigation.findNavController(requireView())
                 .navigate(R.id.navigation_conversation, bundle);
-        Navigation.findNavController(requireView()).navigate(R.id.navigation_conversation,bundle);
+        Navigation.findNavController(requireView()).navigate(R.id.navigation_conversation, bundle);
     }
 }

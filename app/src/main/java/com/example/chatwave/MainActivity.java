@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     // TODO: Inform user that that your app will not show notifications.
                 }
             });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +45,15 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        navController.navigate(R.id.navigation_login );
+        navController.navigate(R.id.navigation_login);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if(navDestination.getId() == R.id.navigation_login ){
+                if (navDestination.getId() == R.id.navigation_login) {
                     getSupportActionBar().hide();
                 } else if (navDestination.getId() == R.id.navigation_chat_user) {
                     getSupportActionBar().show();
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 }
             }
         });
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         // Request notification permission
         askNotificationPermission();
     }
+
     private void askNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
@@ -80,5 +83,11 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        navController.popBackStack();
+        return true;
     }
 }

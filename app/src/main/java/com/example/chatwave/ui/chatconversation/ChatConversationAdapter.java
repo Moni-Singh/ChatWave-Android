@@ -56,6 +56,7 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
     public int getItemCount() {
         return mUserChatMessage.size();
     }
+
     @Override
     public int getItemViewType(int position) {
         UserChatMessage userChatMessage = mUserChatMessage.get(position);
@@ -69,26 +70,27 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
             super(itemView);
             binding = UserSendMessageBinding.bind(itemView);
         }
+
         public void bind(UserChatMessage userChatMessage) {
             binding.textSendMessage.setText(userChatMessage.data);
             String timestamp = userChatMessage.getCreatedAt();
             String time = HelperMethod.convertTimestampToTime(timestamp);
-            System.out.println("Formatted Time: " + time);
             binding.tvSendMessageTime.setText(time);
         }
     }
 
     public static class ReceiveViewHolder extends RecyclerView.ViewHolder {
         UserReceiveMessageBinding binding;
+
         public ReceiveViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = UserReceiveMessageBinding.bind(itemView);
         }
+
         public void bind(UserChatMessage userChatMessage) {
             binding.textReceiveMessage.setText(userChatMessage.data);
             String timestamp = userChatMessage.getCreatedAt();
             String time = HelperMethod.convertTimestampToTime(timestamp);
-            System.out.println("Formatted Time: " + time);
             binding.tvReceiveMessageTime.setText(time);
         }
     }

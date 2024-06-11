@@ -23,6 +23,7 @@ public class ApplicationSharedPreferences {
         edit.putString(key, json);
         edit.apply();
     }
+
     public static Object getSavedObject(String key, Object default_value, Class<?> className, Context context) {
 
         Object retrievedObj = null;
@@ -45,6 +46,7 @@ public class ApplicationSharedPreferences {
         }
         return retrievedObj;
     }
+
     public static void saveFCMToken(Context context, String token) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(APPLICATION_PREFERENCES_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

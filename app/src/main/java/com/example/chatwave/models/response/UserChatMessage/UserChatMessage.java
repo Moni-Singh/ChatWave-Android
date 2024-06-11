@@ -21,6 +21,7 @@ public class UserChatMessage {
         this.updatedAt = updatedAt;
         this.__v = __v;
     }
+
     // Getters and Setters
     public String get_id() {
         return _id;

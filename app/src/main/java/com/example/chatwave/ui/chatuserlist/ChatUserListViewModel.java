@@ -21,13 +21,16 @@ public class ChatUserListViewModel extends ViewModel {
 
     private MutableLiveData<List<ChatUserListData>> chatUserListLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> logoutLiveData = new MutableLiveData<>();
+
     public LiveData<List<ChatUserListData>> getChatUserListLiveData() {
         return chatUserListLiveData;
     }
+
     public LiveData<Boolean> getLogoutLiveData() {
         return logoutLiveData;
     }
 
+    //Method to call ChatUserList
     public void chatUserList(String userToken) {
         String authorizationHeader = "Bearer " + userToken;
         ApiInterface apiInterface = ApiClient.getAPIInterface();
@@ -36,12 +39,12 @@ public class ChatUserListViewModel extends ViewModel {
             public void onResponse(Call<List<ChatUserListData>> call, Response<List<ChatUserListData>> response) {
                 if (response.isSuccessful()) {
                     List<ChatUserListData> chatUserListData = response.body();
-                    Log.d("responseApi", chatUserListData.toString());
                     chatUserListLiveData.setValue(chatUserListData);
                 } else {
                     Log.e("Response Error", "Failed to fetch chat user list: " + response.code());
                 }
             }
+
             @Override
             public void onFailure(Call<List<ChatUserListData>> call, Throwable t) {
                 Log.e("API Error", "Failed to fetch chat user list: " + t.getMessage());
@@ -49,6 +52,7 @@ public class ChatUserListViewModel extends ViewModel {
         });
     }
 
+    //Method to call logout Api
     public void logout(String userToken) {
         if (userToken == null || userToken.isEmpty()) {
             Log.e("API Error", "User token is null or empty");
@@ -62,12 +66,10 @@ public class ChatUserListViewModel extends ViewModel {
             public void onResponse(Call<LogOutResponse> call, Response<LogOutResponse> response) {
                 if (response.isSuccessful()) {
                     LogOutResponse logOutResponse = response.body();
-                    Log.d("logit", "logout successful");
+
                     if (logOutResponse != null) {
-                        Log.d("successful", logOutResponse.toString());
                         logoutLiveData.setValue(true);
                     } else {
-                        Log.e("API Error", "Logout response is null");
                         logoutLiveData.setValue(false);
                     }
                 } else {

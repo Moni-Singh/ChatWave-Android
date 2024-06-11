@@ -38,7 +38,7 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
     private Context mContext;
     private RecyclerView chatUserListRecycleView;
     private ChatUserListAdapter chatUserListAdapter;
-    private  String userToken;
+    private String userToken;
 
     public static ChatUserListFragment newInstance() {
         return new ChatUserListFragment();
@@ -69,6 +69,7 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
                 }
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (chatUserListAdapter != null) {
@@ -134,7 +135,6 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
     @Override
     public void onChatUserClick(ChatUserListData chatUserListData) {
         Bundle bundle = new Bundle();
-
         bundle.putSerializable("chatUserList", chatUserListData);
         Navigation.findNavController(requireView())
                 .navigate(R.id.navigation_conversation, bundle);

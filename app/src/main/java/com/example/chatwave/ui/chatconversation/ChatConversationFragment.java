@@ -121,6 +121,7 @@ public class ChatConversationFragment extends Fragment {
                 }
             });
         });
+
         // Initialize the handler and the runnable for refreshing the chat
         handler = new Handler(Looper.getMainLooper());
         refreshRunnable = new Runnable() {
@@ -132,21 +133,8 @@ public class ChatConversationFragment extends Fragment {
         };
         handler.postDelayed(refreshRunnable, 2000);
 
-        // Enable the back button in the action bar
-        if (requireActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-//        // Add logging to back button click handling
-//        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-//            @Override
-//            public void handleOnBackPressed() {
-//                Log.d("clcikedback", "Back button pressed");
-//
-//                NavController navController = Navigation.findNavController(requireActivity(), R.id.navigation_chat_user);
-//                navController.navigate(R.id.navigation_chat_user);
-//            }
-//        });
         return root;
     }
+
+
 }

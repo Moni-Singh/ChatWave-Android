@@ -22,11 +22,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     public UserListAdapter(List<UserListResponse> userList) {
         this.userList = userList;
-        this.userListFiltered = new ArrayList<>(userList);    }
+        this.userListFiltered = new ArrayList<>(userList);
+    }
 
     public void setOnUserClickListener(OnUserClickListener listener) {
         this.listener = listener;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,10 +50,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         NewChatUserlistBinding binding;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             binding = NewChatUserlistBinding.bind(itemView);
         }
+
         public void bind(UserListResponse user) {
             binding.userNameTextView.setText(user.getFirstname());
             binding.usernameProfileCl.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +68,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
             });
         }
     }
+
     public void filter(String query) {
         userListFiltered.clear();
         if (query.isEmpty()) {

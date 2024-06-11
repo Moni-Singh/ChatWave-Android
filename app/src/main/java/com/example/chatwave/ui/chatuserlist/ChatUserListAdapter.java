@@ -33,6 +33,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
         this.mLoginResponse = loginResponse;
         this.mChatUserListFiltered = new ArrayList<>(mChatUserList);
     }
+
     public void setOnUserClickListener(OnChatUserClickListener listener) {
         this.listener = listener;
     }
@@ -54,6 +55,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
     public int getItemCount() {
         return mChatUserListFiltered.size();
     }
+
     public void filter(String query) {
         mChatUserListFiltered.clear();
         if (query.isEmpty()) {
@@ -68,6 +70,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
         }
         notifyDataSetChanged();
     }
+
     public class ChatUserViewHolder extends RecyclerView.ViewHolder {
         ChatUserListBinding binding;
 
@@ -94,9 +97,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
 
             String timestamp = chatUserListData.lastMessageTimeStamps;
             String time = HelperMethod.convertTimestampToTime(timestamp);
-            System.out.println("Formatted Time: " + time);
             binding.lastMessageStatus.setText(time);
-
             binding.lastMessageTv.setText(chatUserListData.lastMessage);
             binding.usernameProfileCl.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,6 +109,7 @@ public class ChatUserListAdapter extends RecyclerView.Adapter<ChatUserListAdapte
             });
         }
     }
+
     public interface OnChatUserClickListener {
         void onChatUserClick(ChatUserListData chatUserListData);
     }

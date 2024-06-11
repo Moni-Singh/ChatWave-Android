@@ -64,6 +64,7 @@ public class RegisterFragment extends Fragment {
 
             }
         });
+
         // Set a listener for date of birth selection
         binding.edtDateOfBirth.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();
@@ -80,6 +81,7 @@ public class RegisterFragment extends Fragment {
                     year, month, dayOfMonth);
             datePickerDialog.show();
         });
+
         // Set a listener for the register button click
         binding.btnRegister.setOnClickListener(view -> {
             String firstname = textFirstName.getText().toString();
@@ -95,9 +97,9 @@ public class RegisterFragment extends Fragment {
         textViewLogin.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.navigation_login);
         });
-
         return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

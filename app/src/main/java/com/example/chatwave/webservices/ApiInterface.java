@@ -25,25 +25,26 @@ public interface ApiInterface {
 
     //Login Api
     @POST(AppUrls.Login)
-    Call<LoginResponse>postLogin(@Body LoginRequest reqLogin);
+    Call<LoginResponse> postLogin(@Body LoginRequest reqLogin);
 
     //Register Api
     @POST(AppUrls.Register)
-    Call<RegisterResponse>postRegister(@Body RegisterRequest reqRegister);
+    Call<RegisterResponse> postRegister(@Body RegisterRequest reqRegister);
+
     //UserList Api
     @GET(AppUrls.USER_LIST)
     Call<List<UserListResponse>> getUserList();
 
     @GET(AppUrls.CHAT_USER_LIST)
-    Call<List<ChatUserListData>> getChatUser(@Header("Authorization") String authorization);
+    Call<List<ChatUserListData>> getChatUser(@Header(AppUrls.HEADER) String authorization);
 
     @POST(AppUrls.USER_CHAT_MESSAGE)
-    Call<List<UserChatMessage>>getUserChatMessage(@Body UserChatMesaageRequest userChatMesaageRequest);
+    Call<List<UserChatMessage>> getUserChatMessage(@Body UserChatMesaageRequest userChatMesaageRequest);
 
     @POST(AppUrls.SEND_CHAT_MESSAGE)
-    Call<SendChatMessageResponse> sendChatMessage(@Header("Authorization") String authorization, @Body SendChatMessageRequest sendChatMessageRequest);
+    Call<SendChatMessageResponse> sendChatMessage(@Header(AppUrls.HEADER) String authorization, @Body SendChatMessageRequest sendChatMessageRequest);
 
     @GET(AppUrls.USER_LOGOUT)
-    Call<LogOutResponse>userLogout(@Header("Authorization") String authorization);
+    Call<LogOutResponse> userLogout(@Header(AppUrls.HEADER) String authorization);
 
 }

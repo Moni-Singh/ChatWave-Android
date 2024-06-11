@@ -20,41 +20,42 @@ import retrofit2.Response;
 
 public class RegisterViewModel extends ViewModel {
 
-  // Method to perform the registration process
-  public void perfomRegister(String firstname, String lastname, String username, String email,
-                             String selectedGender, String selectedDOB, String password,
-                             String confirmPassword , String role, NavController navController, Context mContext, View progressLayout) {
+    // Method to perform the registration process
+    public void perfomRegister(String firstname, String lastname, String username, String email,
+                               String selectedGender, String selectedDOB, String password,
+                               String confirmPassword, String role, NavController navController, Context mContext, View progressLayout) {
 
-    // Check if any of the input fields are empty
-    if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null ||email.isEmpty()
-    || selectedGender == null || selectedGender.isEmpty() || password == null || password.isEmpty() || selectedDOB == null|| selectedDOB.isEmpty() ||
-    confirmPassword == null || confirmPassword.isEmpty() || role ==null ||role.isEmpty()) {
-      Toast.makeText(mContext, "Fill all the details", Toast.LENGTH_SHORT).show();
-      return;
-    }
-
-    // Show the progress layout while registration is in process
-    progressLayout.setVisibility(View.VISIBLE);
-
-    RegisterRequest registerRequest = new RegisterRequest(firstname,lastname,username,email,selectedGender,selectedDOB,password,confirmPassword,role);
-    ApiInterface apiInterface = ApiClient.getAPIInterface();
-
-    apiInterface.postRegister(registerRequest).enqueue(new Callback<RegisterResponse>() {
-      @Override
-      public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-        if(response.isSuccessful()){
-          progressLayout.setVisibility(View.GONE);
-          navController.navigate(R.id.navigation_login);
-          RegisterResponse registerResponse = response.body();
-          Log.d("Register Response Sucessfull",registerResponse.message);
+        // Check if any of the input fields are empty
+        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null || email.isEmpty()
+                || selectedGender == null || selectedGender.isEmpty() || password == null || password.isEmpty() || selectedDOB == null || selectedDOB.isEmpty() ||
+                confirmPassword == null || confirmPassword.isEmpty() || role == null || role.isEmpty()) {
+            Toast.makeText(mContext, "Fill all the details", Toast.LENGTH_SHORT).show();
+            return;
         }
-      }
-      @Override
-      public void onFailure(Call<RegisterResponse> call, Throwable t) {
-        Log.e("Register  Response", "Error occurred: " + t.getMessage());
-        t.printStackTrace();
-        progressLayout.setVisibility(View.GONE);
-      }
-    });
-  }
+
+        // Show the progress layout while registration is in process
+        progressLayout.setVisibility(View.VISIBLE);
+
+        RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, username, email, selectedGender, selectedDOB, password, confirmPassword, role);
+        ApiInterface apiInterface = ApiClient.getAPIInterface();
+
+        apiInterface.postRegister(registerRequest).enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                if (response.isSuccessful()) {
+                    progressLayout.setVisibility(View.GONE);
+                    navController.navigate(R.id.navigation_login);
+                    RegisterResponse registerResponse = response.body();
+                    Log.d("Register Response Sucessfull", registerResponse.message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                Log.e("Register  Response", "Error occurred: " + t.getMessage());
+                t.printStackTrace();
+                progressLayout.setVisibility(View.GONE);
+            }
+        });
+    }
 }

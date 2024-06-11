@@ -20,21 +20,23 @@ import retrofit2.Response;
 public class NewChatUserViewModel extends ViewModel {
 
     private MutableLiveData<List<UserListResponse>> userListLiveData = new MutableLiveData<>();
-     LiveData<List<UserListResponse>> getUserListLiveData(){
+
+    LiveData<List<UserListResponse>> getUserListLiveData() {
         return userListLiveData;
     }
 
 
-    public void userList (){
+    public void userList() {
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getUserList().enqueue(new Callback<List<UserListResponse>>() {
             @Override
             public void onResponse(Call<List<UserListResponse>> call, Response<List<UserListResponse>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<UserListResponse> userListResponseList = response.body();
                     userListLiveData.setValue(userListResponseList);
                 }
             }
+
             @Override
             public void onFailure(Call<List<UserListResponse>> call, Throwable t) {
                 Log.e("API Error", "Failed to fetch user list: " + t.getMessage());

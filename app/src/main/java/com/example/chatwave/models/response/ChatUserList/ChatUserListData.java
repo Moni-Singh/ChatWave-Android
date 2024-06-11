@@ -15,6 +15,7 @@ public class ChatUserListData implements Serializable {
         this.lastMessage = lastMessage;
         this.lastMessageTimeStamps = lastMessageTimeStamps;
     }
+
     // Getter method for senderDetails
     public SenderDetails getSenderDetails() {
         return senderDetails;

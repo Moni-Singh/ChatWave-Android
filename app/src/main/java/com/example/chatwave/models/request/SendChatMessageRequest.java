@@ -7,7 +7,7 @@ public class SendChatMessageRequest {
     public String messageType;
 
 
-    public  SendChatMessageRequest (String receiverId, String data, String messageType){
+    public SendChatMessageRequest(String receiverId, String data, String messageType) {
         this.receiverId = receiverId;
         this.data = data;
         this.messageType = messageType;
