@@ -1,9 +1,8 @@
 // HomeFragment.java
-package com.example.chatwave.ui.addnewchatuser;
+package com.example.chatwave.ui.chat.searchuser;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatwave.R;
 import com.example.chatwave.databinding.FragmentHomeBinding;
-import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.models.response.UserListResponse;
-import com.example.chatwave.util.ApplicationSharedPreferences;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
+import com.example.chatwave.util.Constants;
+import com.example.chatwave.util.HelperMethod;
 
 public class AddNewChatUserFragment extends Fragment implements UserListAdapter.OnUserClickListener {
 
@@ -39,6 +36,12 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         mContext = getContext();
+
+        if (!HelperMethod.isNetworkAvailable(mContext)) {
+            HelperMethod.showGeneralNICToast(mContext);
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_no_internet);
+            return root;
+        }
         homeViewModel.userList();
 
         // Initialize recyclerView
@@ -51,6 +54,8 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
                 userListAdapter = new UserListAdapter(userListResponses);
                 userListAdapter.setOnUserClickListener(this);
                 userListRecycleView.setAdapter(userListAdapter);
+            } else {
+                HelperMethod.showErrorToast(mContext);
             }
         });
 
@@ -72,19 +77,8 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
                 return false;
             }
         });
-
-        // Retrieving stored login response
-        LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
-        if (storedLoginResponse != null) {
-            Gson gson = new Gson();
-            String jsonResponse = gson.toJson(storedLoginResponse);
-            Log.d("Stored Login Response", jsonResponse);
-        } else {
-            Log.d("Stored Login Response", "No login response found.");
-        }
         return root;
     }
-
 
     @Override
     public void onDestroyView() {
@@ -96,7 +90,7 @@ public class AddNewChatUserFragment extends Fragment implements UserListAdapter.
     @Override
     public void onUserClick(UserListResponse user) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("user", user);
+        bundle.putSerializable(Constants.User, user);
 
         Navigation.findNavController(requireView())
                 .navigate(R.id.navigation_conversation, bundle);

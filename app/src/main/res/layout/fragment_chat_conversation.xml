@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_8sdp">
+    android:padding="8dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userChatHistoryRv"
@@ -20,29 +20,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-      android:layout_marginBottom="@dimen/_3sdp"
-        app:cardBackgroundColor="#cdcdcd"
         android:layout_alignParentBottom="true"
-        app:cardCornerRadius="@dimen/_20sdp">
+        android:layout_marginBottom="3dp"
+        app:cardBackgroundColor="@color/cardgrey"
+        app:cardCornerRadius="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_5sdp">
+            android:paddingVertical="5dp">
 
             <EditText
                 android:id="@+id/edtmessagebox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:cursorVisible="true"
-                android:layout_marginHorizontal="@dimen/_5sdp"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:hint="Enter Your Message"
+                android:hint="@string/enter_your_message"
                 android:maxLines="3"
-                android:padding="@dimen/_5sdp" />
+                android:padding="5dp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -52,21 +52,20 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/_2sdp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
         app:cardBackgroundColor="@color/lightGreen"
-        app:cardCornerRadius="@dimen/_50ssp"
-        app:cardElevation="@dimen/_8sdp"
-        >
+        app:cardCornerRadius="55sp"
+        app:cardElevation="8dp">
 
         <ImageView
             android:id="@+id/userSendMessage"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerInParent="true"
-            android:padding="@dimen/_3sdp"
             android:layout_gravity="center"
-            android:src="@drawable/send_message"
+            android:padding="3dp"
+            android:src="@drawable/shape_send_message"
             app:tint="@color/white" />
 
     </com.google.android.material.card.MaterialCardView>

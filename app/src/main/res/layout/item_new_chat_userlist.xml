@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_5sdp"
-    android:layout_marginHorizontal="@dimen/_8sdp"
-    android:layout_marginVertical="@dimen/_4sdp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/usernameProfileCl"
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:padding="@dimen/_8sdp"
+        android:padding="8dp"
         android:background="@color/cardcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             app:cardElevation="0dp"
-            app:cardCornerRadius="@dimen/_50ssp"
+            app:cardCornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,9 +34,9 @@
                 android:id="@+id/UserImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_7sdp"
+                android:padding="7dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/person"
+                android:src="@drawable/ic_person"
                />
 
         </com.google.android.material.card.MaterialCardView>
@@ -47,9 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:text="Moni"
+            android:text="@string/moni"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/userImageCardView"

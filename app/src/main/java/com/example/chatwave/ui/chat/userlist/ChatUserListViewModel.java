@@ -1,6 +1,4 @@
-package com.example.chatwave.ui.chatuserlist;
-
-import android.util.Log;
+package com.example.chatwave.ui.chat.userlist;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -40,25 +38,18 @@ public class ChatUserListViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     List<ChatUserListData> chatUserListData = response.body();
                     chatUserListLiveData.setValue(chatUserListData);
-                } else {
-                    Log.e("Response Error", "Failed to fetch chat user list: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ChatUserListData>> call, Throwable t) {
-                Log.e("API Error", "Failed to fetch chat user list: " + t.getMessage());
+                chatUserListLiveData.setValue(null);
             }
         });
     }
 
     //Method to call logout Api
     public void logout(String userToken) {
-        if (userToken == null || userToken.isEmpty()) {
-            Log.e("API Error", "User token is null or empty");
-            logoutLiveData.setValue(false);
-            return;
-        }
         String authorizationHeader = "Bearer " + userToken;
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.userLogout(authorizationHeader).enqueue(new Callback<LogOutResponse>() {
@@ -72,18 +63,13 @@ public class ChatUserListViewModel extends ViewModel {
                     } else {
                         logoutLiveData.setValue(false);
                     }
-                } else {
-                    Log.e("API Error", "Logout failed with response code: " + response.code());
-                    logoutLiveData.setValue(false);
                 }
             }
 
             @Override
             public void onFailure(Call<LogOutResponse> call, Throwable t) {
-                Log.e("API Error", "Logout failed: " + t.getMessage());
                 logoutLiveData.setValue(false);
             }
         });
     }
-
 }

@@ -1,6 +1,4 @@
-package com.example.chatwave.ui.chatconversation;
-
-import android.util.Log;
+package com.example.chatwave.ui.chat.conversation;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,7 +10,6 @@ import com.example.chatwave.models.response.SendChatMessageResponse;
 import com.example.chatwave.models.response.UserChatMessage.UserChatMessage;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -33,8 +30,8 @@ public class ChatConversationViewModel extends ViewModel {
     }
 
     //Method to call getUserChatMessages APi
-    public void getUserChatMessage(String senderId, String receiverId) {
-        UserChatMesaageRequest userChatMesaageRequest = new UserChatMesaageRequest(senderId, receiverId);
+    public void getUserChatMessage(UserChatMesaageRequest userChatMesaageRequest) {
+
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getUserChatMessage(userChatMesaageRequest).enqueue(new Callback<List<UserChatMessage>>() {
             @Override
@@ -47,17 +44,14 @@ public class ChatConversationViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<UserChatMessage>> call, Throwable t) {
-                Log.e("User Chat Message Resposne Failed", "Error occurred: " + t.getMessage());
-                t.printStackTrace();
+                chatUserListLiveData.setValue(null);
             }
         });
     }
 
     //Method to call sendTextMessages Api
-    public void sendTextMessage(String dataMessage, String receiverId, String userToken) {
+    public void sendTextMessage(SendChatMessageRequest sendChatMessageRequest, String userToken) {
         String authorizationHeader = "Bearer " + userToken;
-        String messageType = "textMessage";
-        SendChatMessageRequest sendChatMessageRequest = new SendChatMessageRequest(receiverId, dataMessage, messageType);
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.sendChatMessage(authorizationHeader, sendChatMessageRequest).enqueue(new Callback<SendChatMessageResponse>() {
             @Override
@@ -70,9 +64,8 @@ public class ChatConversationViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<SendChatMessageResponse> call, Throwable t) {
-                Log.e("API Error", "Failed to this  SendChatMessageResposne: " + t.getMessage());
+                sendChatMessageLiveData.setValue(null);
             }
         });
     }
-
 }

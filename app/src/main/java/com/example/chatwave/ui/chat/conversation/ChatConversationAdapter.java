@@ -1,6 +1,5 @@
-package com.example.chatwave.ui.chatconversation;
+package com.example.chatwave.ui.chat.conversation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatwave.R;
-import com.example.chatwave.databinding.UserReceiveMessageBinding;
-import com.example.chatwave.databinding.UserSendMessageBinding;
-import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
+import com.example.chatwave.databinding.ItemUserReceiveMessageBinding;
+import com.example.chatwave.databinding.ItemUserSendMessageBinding;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.models.response.UserChatMessage.UserChatMessage;
 import com.example.chatwave.util.HelperMethod;
@@ -34,10 +32,10 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == ITEM_SEND) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_send_message, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_send_message, parent, false);
             return new SentViewHolder(view);
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_receive_message, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_receive_message, parent, false);
             return new ReceiveViewHolder(view);
         }
     }
@@ -64,11 +62,11 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public static class SentViewHolder extends RecyclerView.ViewHolder {
-        UserSendMessageBinding binding;
+        ItemUserSendMessageBinding binding;
 
         public SentViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = UserSendMessageBinding.bind(itemView);
+            binding = ItemUserSendMessageBinding.bind(itemView);
         }
 
         public void bind(UserChatMessage userChatMessage) {
@@ -80,11 +78,11 @@ public class ChatConversationAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     public static class ReceiveViewHolder extends RecyclerView.ViewHolder {
-        UserReceiveMessageBinding binding;
+        ItemUserReceiveMessageBinding binding;
 
         public ReceiveViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = UserReceiveMessageBinding.bind(itemView);
+            binding = ItemUserReceiveMessageBinding.bind(itemView);
         }
 
         public void bind(UserChatMessage userChatMessage) {

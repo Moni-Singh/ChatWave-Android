@@ -1,4 +1,4 @@
-package com.example.chatwave.ui.addnewchatuser;
+package com.example.chatwave.ui.chat.searchuser;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatwave.R;
-import com.example.chatwave.databinding.NewChatUserlistBinding;
+import com.example.chatwave.databinding.ItemNewChatUserlistBinding;
 import com.example.chatwave.models.response.UserListResponse;
 
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_chat_userlist, parent, false);
-        NewChatUserlistBinding binding = NewChatUserlistBinding.bind(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_chat_userlist, parent, false);
+        ItemNewChatUserlistBinding binding = ItemNewChatUserlistBinding.bind(view);
         return new ViewHolder(view);
     }
 
@@ -49,11 +49,11 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        NewChatUserlistBinding binding;
+        ItemNewChatUserlistBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            binding = NewChatUserlistBinding.bind(itemView);
+            binding = ItemNewChatUserlistBinding.bind(itemView);
         }
 
         public void bind(UserListResponse user) {

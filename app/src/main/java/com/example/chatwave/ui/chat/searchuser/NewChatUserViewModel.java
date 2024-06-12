@@ -1,6 +1,4 @@
-package com.example.chatwave.ui.addnewchatuser;
-
-import android.util.Log;
+package com.example.chatwave.ui.chat.searchuser;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 import com.example.chatwave.models.response.UserListResponse;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
-import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class NewChatUserViewModel extends ViewModel {
         return userListLiveData;
     }
 
-
+    //Method to call UserList
     public void userList() {
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.getUserList().enqueue(new Callback<List<UserListResponse>>() {
@@ -39,7 +36,7 @@ public class NewChatUserViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<UserListResponse>> call, Throwable t) {
-                Log.e("API Error", "Failed to fetch user list: " + t.getMessage());
+                userListLiveData.setValue(null);
             }
         });
     }

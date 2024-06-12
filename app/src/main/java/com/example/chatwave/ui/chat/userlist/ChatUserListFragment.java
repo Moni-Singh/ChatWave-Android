@@ -1,9 +1,8 @@
-package com.example.chatwave.ui.chatuserlist;
+package com.example.chatwave.ui.chat.userlist;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +18,6 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +27,8 @@ import com.example.chatwave.databinding.FragmentChatUserListBinding;
 import com.example.chatwave.models.response.ChatUserList.ChatUserListData;
 import com.example.chatwave.models.response.LoginResponse;
 import com.example.chatwave.util.ApplicationSharedPreferences;
-import com.google.gson.Gson;
+import com.example.chatwave.util.Constants;
+import com.example.chatwave.util.HelperMethod;
 
 public class ChatUserListFragment extends Fragment implements ChatUserListAdapter.OnChatUserClickListener {
 
@@ -54,8 +52,13 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
         View root = binding.getRoot();
         mContext = getContext();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject("loginResponse", null, LoginResponse.class, mContext);
+        LoginResponse storedLoginResponse = (LoginResponse) ApplicationSharedPreferences.getSavedObject(Constants.LOGIN_DATA, null, LoginResponse.class, mContext);
         userToken = storedLoginResponse.getToken();
+        if (!HelperMethod.isNetworkAvailable(mContext)) {
+            HelperMethod.showGeneralNICToast(mContext);
+            Navigation.findNavController(requireView()).navigate(R.id.navigation_no_internet);
+            return root;
+        }
         chatUserListViewModel.chatUserList(userToken);
         binding.addNewChatUserFab.setOnClickListener(view ->
         {
@@ -93,13 +96,23 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id == R.id.logout) {
+
+                    if (userToken == null || userToken.isEmpty()) {
+                        HelperMethod.showToast(getResources().getString(R.string.email_password_should_not_be_empty), mContext);
+                        return false;
+                    }
+                    if (!HelperMethod.isNetworkAvailable(mContext)) {
+                        HelperMethod.showGeneralNICToast(mContext);
+                        Navigation.findNavController(requireView()).navigate(R.id.navigation_no_internet);
+                        return false;
+                    }
                     chatUserListViewModel.logout(userToken);
                     chatUserListViewModel.getLogoutLiveData().observe(getViewLifecycleOwner(), isLoggedOut -> {
                         if (isLoggedOut) {
                             Navigation.findNavController(requireView())
                                     .navigate(R.id.navigation_login);
                         } else {
-                            Toast.makeText(mContext, "Logout failed, please try again.", Toast.LENGTH_SHORT).show();
+                            HelperMethod.showErrorToast(mContext);
                         }
                     });
                     return true;
@@ -127,6 +140,8 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
                 chatUserListAdapter = new ChatUserListAdapter(mContext, chatUserList, storedLoginResponse);
                 chatUserListAdapter.setOnUserClickListener(this);
                 chatUserListRecycleView.setAdapter(chatUserListAdapter);
+            } else {
+                HelperMethod.showErrorToast(mContext);
             }
         });
         return root;
@@ -135,7 +150,7 @@ public class ChatUserListFragment extends Fragment implements ChatUserListAdapte
     @Override
     public void onChatUserClick(ChatUserListData chatUserListData) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("chatUserList", chatUserListData);
+        bundle.putSerializable(Constants.Chat_User_List, chatUserListData);
         Navigation.findNavController(requireView())
                 .navigate(R.id.navigation_conversation, bundle);
     }

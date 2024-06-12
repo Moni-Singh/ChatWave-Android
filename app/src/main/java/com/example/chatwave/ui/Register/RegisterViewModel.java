@@ -5,56 +5,49 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.navigation.NavController;
 
 import com.example.chatwave.R;
 import com.example.chatwave.models.request.RegisterRequest;
 import com.example.chatwave.models.response.RegisterResponse;
+import com.example.chatwave.util.HelperMethod;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.PUT;
 
 public class RegisterViewModel extends ViewModel {
 
+    private MutableLiveData<RegisterResponse> registerResponseList;
+
+    public RegisterViewModel() {
+        registerResponseList = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<RegisterResponse> getRegisterResponseObserver() {
+        return registerResponseList;
+    }
+
     // Method to perform the registration process
-    public void perfomRegister(String firstname, String lastname, String username, String email,
-                               String selectedGender, String selectedDOB, String password,
-                               String confirmPassword, String role, NavController navController, Context mContext, View progressLayout) {
+    public void performRegister(RegisterRequest registerRequest) {
 
-        // Check if any of the input fields are empty
-        if (firstname == null || firstname.isEmpty() || lastname == null || lastname.isEmpty() || username == null || username.isEmpty() || email == null || email.isEmpty()
-                || selectedGender == null || selectedGender.isEmpty() || password == null || password.isEmpty() || selectedDOB == null || selectedDOB.isEmpty() ||
-                confirmPassword == null || confirmPassword.isEmpty() || role == null || role.isEmpty()) {
-            Toast.makeText(mContext, "Fill all the details", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Show the progress layout while registration is in process
-        progressLayout.setVisibility(View.VISIBLE);
-
-        RegisterRequest registerRequest = new RegisterRequest(firstname, lastname, username, email, selectedGender, selectedDOB, password, confirmPassword, role);
         ApiInterface apiInterface = ApiClient.getAPIInterface();
-
         apiInterface.postRegister(registerRequest).enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if (response.isSuccessful()) {
-                    progressLayout.setVisibility(View.GONE);
-                    navController.navigate(R.id.navigation_login);
-                    RegisterResponse registerResponse = response.body();
-                    Log.d("Register Response Sucessfull", registerResponse.message);
+                    registerResponseList.postValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Log.e("Register  Response", "Error occurred: " + t.getMessage());
-                t.printStackTrace();
-                progressLayout.setVisibility(View.GONE);
+                registerResponseList.postValue(null);
             }
         });
     }

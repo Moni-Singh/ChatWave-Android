@@ -6,28 +6,28 @@
     android:layout_height="wrap_content"
     android:layout_gravity="end"
     android:gravity="end"
-    android:layout_marginStart="@dimen/_25sdp"
-    android:layout_marginTop="@dimen/_5sdp"
-    android:layout_marginEnd="@dimen/_15sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:layout_marginStart="25dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="15dp"
+    android:paddingBottom="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/send_card_design"
+        android:background="@drawable/shape_send_card_design"
         android:backgroundTint="@color/lightGreen"
-        android:padding="@dimen/_5sdp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textSendMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:padding="@dimen/_2sdp"
-            android:text="H"
-            android:layout_marginEnd="@dimen/_35sdp"
+            android:layout_marginStart="10dp"
+            android:padding="2dp"
+            android:text="@string/hello"
+            android:layout_marginEnd="35dp"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,9 +36,9 @@
             android:id="@+id/tvSendMessageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="09:60pm"
-            android:textSize="@dimen/_9sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
+            android:text="@string/text_time"
+            android:textSize="10dp"
+            android:layout_marginEnd="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textSendMessage"
             app:layout_constraintTop_toBottomOf="@+id/textSendMessage" />

@@ -1,39 +1,31 @@
 package com.example.chatwave.ui.login;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.navigation.NavController;
 
-import com.example.chatwave.R;
 import com.example.chatwave.models.request.LoginRequest;
 import com.example.chatwave.models.response.LoginResponse;
-import com.example.chatwave.util.ApplicationSharedPreferences;
 import com.example.chatwave.webservices.ApiClient;
 import com.example.chatwave.webservices.ApiInterface;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
+    private MutableLiveData<LoginResponse> loginResponseList;
+
+    public LoginViewModel() {
+        loginResponseList = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<LoginResponse> getLoginResponseObserver() {
+        return loginResponseList;
+    }
 
     //Method to call Login Api
-    public void performLogin(String email, String password, NavController navController, Context mContext, View progressLayout) {
-        // Check if any of the input fields are empty
-        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
-            Toast.makeText(mContext, "Email or Password cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        String fcmToken = ApplicationSharedPreferences.getFCMToken(mContext.getApplicationContext());
-        progressLayout.setVisibility(View.VISIBLE);
-        LoginRequest loginRequest = new LoginRequest(email, password, fcmToken);
+    public void performLogin(LoginRequest loginRequest) {
+
         ApiInterface apiInterface = ApiClient.getAPIInterface();
         apiInterface.postLogin(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
@@ -41,22 +33,14 @@ public class LoginViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
                     if (loginResponse != null) {
-                        progressLayout.setVisibility(View.GONE);
-                        ApplicationSharedPreferences.saveObject("loginResponse", loginResponse, mContext);
-                        navController.navigate(R.id.navigation_chat_user);
-                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean("isLoggedIn", true);
-                        editor.apply();
+                        loginResponseList.postValue(response.body());
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e("Login Response", "Error occurred: " + t.getMessage());
-                t.printStackTrace();
-                progressLayout.setVisibility(View.GONE);
+                loginResponseList.postValue(null);
             }
         });
     }

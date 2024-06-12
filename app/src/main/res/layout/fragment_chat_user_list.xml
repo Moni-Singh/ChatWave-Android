@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addnewchatuser.AddNewChatUserFragment">
+    tools:context=".ui.chat.searchuser.AddNewChatUserFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/userListSearchCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_49sdp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="49dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,19 +30,19 @@
         android:id="@+id/chatUserListRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userListSearchCv"
-        tools:listitem="@layout/chat_user_list" />
+        tools:listitem="@layout/item_chat_user_list" />
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addNewChatUserFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:src="@drawable/add_chat_user"
+        android:layout_margin="16dp"
+        android:src="@drawable/shape_add_chat_user"
         app:tint="@android:color/white"
         android:backgroundTint="@color/lightGrey"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -3,6 +3,7 @@
     <string name="title_add_new_user">Start New Chat</string>
     <string name="title_register">Register</string>
     <string name="title_login">Login</string>
+    <string name="title_no_internet">No Internet</string>
     <string name="chat_conversation">ChatConversation</string>
     <string name="title_chat_userList">Chat User</string>
     <string name="login">Login</string>
@@ -21,13 +22,24 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="logout">Logout</string>
+    <string name="hello">Hello</string>
+    <string name="text_time">09:60pm</string>
+    <string name="moni">Moni</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="enter_your_message">Enter Your Message</string>
+    <string name="last_message_here">Last message is here</string>
     <string name="menu">Menu</string>
     <string name="userProfile">UserProfile</string>
+    <string name="token_cannot_be_empty">Token can not be Empty</string>
+    <string name="fill_all_details">Fill all the details</string>
+    <string name="email_password_should_not_be_empty">Email and password should not be empty</string>
+    <string name="internet_connection_not_available">No Internet Connection available. Please check your connection.</string>
     <string name="already_member_then_login">Already a member login !</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="email_should_be_gmail">Email should be in gmail.com format</string>
 
-    //For Login
-    <string name="PREFS_LOGGED_IN">prefs_logged_in</string>
-    <string name="PREFS_LOGGED_IN_USER_DETAILS">prefs_logged_in_user_details</string>
-    <string name="PREFS_USER_ID">user_id</string>
+
+
 
 </resources>

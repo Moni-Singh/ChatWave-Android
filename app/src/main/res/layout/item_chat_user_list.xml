@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/_5sdp"
-    android:layout_marginHorizontal="@dimen/_8sdp"
-    android:layout_marginVertical="@dimen/_4sdp"
+    app:cardCornerRadius="5dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/usernameProfileCl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/_8sdp"
+        android:padding="8dp"
         android:background="@color/cardcolor"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -25,10 +25,10 @@
             android:id="@+id/userImageCardView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="@dimen/_10sdp"
-            app:cardCornerRadius="@dimen/_50ssp"
+            android:layout_marginStart="10dp"
+            app:cardCornerRadius="50sp"
             app:cardElevation="0dp"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_margin="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,9 +37,9 @@
                 android:id="@+id/UserImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/_7sdp"
+                android:padding="7dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/person"
+                android:src="@drawable/ic_person"
                 />
 
         </com.google.android.material.card.MaterialCardView>
@@ -50,9 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
-            android:text="Moni"
+            android:text="@string/moni"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/userImageCardView"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,8 +60,8 @@
             android:id="@+id/lastMessageStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yesterday"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/yesterday"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/userNameTv" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Last message is here"
+            android:text="@string/last_message_here"
             app:layout_constraintStart_toEndOf="@+id/userImageCardView"
             app:layout_constraintTop_toBottomOf="@+id/userNameTv" />
     </androidx.constraintlayout.widget.ConstraintLayout>

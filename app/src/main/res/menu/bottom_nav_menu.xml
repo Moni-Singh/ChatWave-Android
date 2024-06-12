@@ -20,4 +20,7 @@
         android:id="@+id/navigation_chat_user"
         android:title="@string/title_chat_userList" />
 
+    <item
+        android:id="@+id/navigation_no_internet"
+        android:title="@string/title_no_internet" />
 </menu>
